@@ -69,7 +69,7 @@ const UserInfo = () => {
                label: 'Yes',
                onClick: async () => {
                   try {
-                     await axios.delete(`http://localhost:8000/OrdinaryUsers/${userId}`);
+                     await axios.delete(`http://localhost:8000OrdinaryUsers/${userId}`);
                      setOrdinaryList(ordinaryList.filter((user) => user._id !== userId));
                      toast.success('User deleted successfully');
                   } catch (error) {

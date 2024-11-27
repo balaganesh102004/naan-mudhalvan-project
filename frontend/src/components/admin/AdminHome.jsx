@@ -67,7 +67,7 @@ const AdminHome = () => {
                         User
                      </NavLink>
                      <NavLink
-                        className={`nav-link text-light ${activeComponent === 'Agent' ? 'active' : ''}`}
+                        className={`nav-link text-light ${activeComponent === 'Agent' ? 'active'  : ''}`}
                         onClick={() => handleNavLinkClick('Agent')}
                      >
                         Agent

@@ -12,61 +12,34 @@ import ChatWindow from '../common/ChatWindow';
 import Footer from '../common/FooterC'
 
 const AgentHome = () => {
-   const style = {
-      marginTop: '66px',
-   }
-
+   const style = {marginTop: '66px',}
    const navigate = useNavigate();
    const [userName, setUserName] = useState('');
    const [toggle, setToggle] = useState({})
    const [agentComplaintList, setAgentComplaintList] = useState([]);
-
    useEffect(() => {
       const getData = async () => {
-         try {
-            const user = JSON.parse(localStorage.getItem('user'));
-            if (user) {
-               const { _id, name } = user;
-               setUserName(name);
+         try {const user = JSON.parse(localStorage.getItem('user'));
+         if (user) {const { _id, name } = user;setUserName(name);
                const response = await axios.get(`http://localhost:8000/allcomplaints/${_id}`);
                const complaints = response.data;
                setAgentComplaintList(complaints);
-            } else {
-               navigate('/');
-            }
-         } catch (error) {
-            console.log(error);
-         }
-      };
-
-      getData();
-   }, [navigate]);
+            } else {navigate('/');}
+         } catch (error) {console.log(error);}};
+      getData();}, [navigate]);
 
    const handleStatusChange = async (complaintId) => {
       try {
          await axios.put(`http://localhost:8000/complaint/${complaintId}`, { status: 'completed' });
          setAgentComplaintList((prevComplaints) =>
-            prevComplaints.map((complaint) =>
-               complaint._doc.complaintId === complaintId ? { ...complaint, _doc: { ...complaint._doc, status: 'completed' } } : complaint
-            )
-         );
-      } catch (error) {
-         console.log(error);
-      }
-   };
+            prevComplaints.map((complaint) =>complaint._doc.complaintId === complaintId ? { ...complaint, _doc: { ...complaint._doc, status: 'completed' } } : complaint));
+      } catch (error) {console.log(error);}};
 
    const handleToggle = (complaintId) => {
       setToggle((prevState) => ({
          ...prevState,
-         [complaintId]: !prevState[complaintId],
-      }));
-   };
-
-   const LogOut = () => {
-      localStorage.removeItem('user');
-      navigate('/');
-   };
-
+         [complaintId]: !prevState[complaintId],}));};
+   const LogOut = () => {localStorage.removeItem('user');navigate('/');};
    return (
       <>
          <div className="body">

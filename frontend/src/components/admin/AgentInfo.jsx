@@ -13,70 +13,35 @@ const AgentInfo = () => {
    const navigate = useNavigate();
    const [ordinaryList, setOrdinaryList] = useState([]);
    const [toggle, setToggle] = useState({})
-   const [updateAgent, setUpdateAgent] = useState({
-      name: '',
-      email: '',
-      phone: '',
-   })
+   const [updateAgent, setUpdateAgent] = useState({name: '',email: '',phone: '',})
 
-   const handleChange = (e) => {
-      setUpdateAgent({ ...updateAgent, [e.target.name]: e.target.value })
-   }
-
-   const handleSubmit = async (user_id) => {
-      if (updateAgent === "") {
-         alert("atleast 1 fields need to be fill")
-      }
-      else {
+   const handleChange = (e) => {setUpdateAgent({ ...updateAgent, [e.target.name]: e.target.value })}
+   const handleSubmit = async (user_id) => {if (updateAgent === "") {alert("atleast 1 fields need to be fill")}else {
          window.confirm("Are you sure you want to update the agent?");
-         axios.put(`http://localhost:8000/user/${user_id}`, updateAgent)
-            .then((res) => {
+         axios.put(`http://localhost:8000/user/${user_id}`, updateAgent).then((res) => {
                alert(`Agent updated successfully`)
-               JSON.stringify(res.data)
-            })
-            .catch((err) => {
-               console.log(err)
-            })
-      }
-   }
-
+               JSON.stringify(res.data)}).catch((err) => {console.log(err)})}}
    useEffect(() => {
       const getOrdinaryRecords = async () => {
-         try {
-            const response = await axios.get('http://localhost:8000/agentUsers');
-            const ordinary = response.data;
-            setOrdinaryList(ordinary)
-         } catch (error) {
-            console.log(error);
-         }
-      };
-      getOrdinaryRecords();
-   }, [navigate]);
-
+         try {const response = await axios.get('http://localhost:8000/agentUsers');
+         const ordinary = response.data;
+            setOrdinaryList(ordinary)} catch (error) {console.log(error);}};
+      getOrdinaryRecords();}, [navigate]);
    const deleteUser = async (userId) => {
-      try {
-         const confirmed = window.confirm("Are you sure you want to delete the user?");
+      try {const confirmed = window.confirm("Are you sure you want to delete the user?");
          if (confirmed) {
             await axios.delete(`http://localhost:8000/OrdinaryUsers/${userId}`);
-            setOrdinaryList(ordinaryList.filter((user) => user._id !== userId));
-         }
-      } catch (error) {
-         console.log(error);
-      }
-   }
+            setOrdinaryList(ordinaryList.filter((user) => user._id !== userId));}
+      } catch (error) {console.log(error);}}
 
    const handleToggle = (complaintId) => {
       setToggle((prevState) => ({
          ...prevState,
          [complaintId]: !prevState[complaintId],
-      }));
-   };
-
-
+      }));};
    return (
       <>
          <div className="body">
-
             <Container>
                <Table striped bordered hover>
                   <thead>
