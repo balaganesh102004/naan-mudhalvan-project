@@ -16,8 +16,7 @@ This project is an **Online Complaint Registration and Management System** devel
 - **Backend**: Node.js, Express.js
 - **Database**: MongoDB
 - **State Management**: Redux (for state management in React)
-- **Styling**: Material UI (or Bootstrap, based on preference)
-
+- **Styling**: Material UI
 ## Link to the Project Demo video
 Demo Video - https://drive.google.com/file/d/1yjLPJ7dclGxi5k7LH3hGEnuys5-U2Kwv/view?usp=drive_link
 
